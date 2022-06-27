@@ -16,20 +16,25 @@
 
       <!-- Store Page -->
       <div id="store-page" v-if="currentPage == 'Store'">
-        <div v-for="data in apiData">
-          <h1>{{data.title}}</h1>
-          <img
-            v-bind:src="data.image"
-            style="max-width: 75px; max-height: 75px"
-          />
-          <p>{{data.description}}</p>
-          <i>${{data.price}}</i>
-        </div>
+        <products
+          v-for="(product, index) in apiData"
+          v-bind:data="product"
+          v-bind:cart="checkoutItems"
+          v-bind:key="index"
+        >
+        </products>
         <button v-on:click="gotoCheckout()">Go to Checkout</button>
       </div>
-
       <!-- Checkout Page -->
       <div id="checkout-page" v-if="currentPage == 'Checkout'">
+        <div v-for="item in checkoutItems">
+          <img
+            v-bind:src="item.image"
+            style="max-width: 75px; max-height: 75px"
+          />
+          {{item.price}}
+          <h3>Total: {{total}}</h3>
+        </div>
         <button v-on:click="gotoHome()">Go to Home</button>
       </div>
     </div>
